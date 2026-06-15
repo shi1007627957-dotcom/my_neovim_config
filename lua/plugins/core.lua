@@ -10,21 +10,21 @@ return {
   },
 
  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function() 
-      local configs = require("nvim-treesitter.configs") -- 这里是你报错的源头
-      configs.setup({
-          -- 你的具体配置写在这里
-          ensure_installed = { "c","cpp","lua", "vim", "vimdoc", "query" },
-          highlight = { enable = true },
-      })
-    end
-  }
+     "nvim-treesitter/nvim-treesitter",
+     build = ":TSUpdate",
+     -- 使用 opts 代替 config 函数，Lazy 会自动、安全地帮你执行 setup
+     opts = {
+       ensure_installed = { "c", "cpp", "lua", "vim", "vimdoc", "query" },
+       highlight = {
+         enable = true,
+       },
+     },
+   },
 
   -- 3. 文件模糊搜索 (Telescope) 带过滤功能
   {
     "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
     dependencies = { "nvim-lua/plenary.nvim" },
     keys = {
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
